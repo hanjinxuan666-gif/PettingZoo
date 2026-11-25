@@ -8,6 +8,17 @@ from pettingzoo.utils import save_observation
 from .color_reduction_test import AGENTS, DummyAEC
 
 
+def test_save_observation_defaults_to_current_directory(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    env = DummyAEC(
+        Box(0, 255, shape=(2, 3), dtype=np.uint8),
+        dict.fromkeys(AGENTS, np.zeros((2, 3), dtype=np.uint8)),
+    )
+    env.reset()
+    save_observation(env)
+    assert (tmp_path / str(env) / f"{env.agent_selection}.png").is_file()
+
+
 @pytest.mark.parametrize(
     "shape", [(2, 3), (2, 3, 3), (2, 3, 1), (1, 3, 1), (2, 1, 1), (1, 1, 1)]
 )

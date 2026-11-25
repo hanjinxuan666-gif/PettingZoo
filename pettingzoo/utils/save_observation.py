@@ -34,7 +34,7 @@ def save_observation(
     env: AECEnv[AgentID, Any, Any],
     agent: AgentID | None = None,
     all_agents: bool = False,
-    save_dir: str = os.getcwd(),
+    save_dir: str = ".",
 ) -> None:
     from PIL import Image
 
